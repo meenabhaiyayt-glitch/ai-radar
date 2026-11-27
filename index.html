@@ -455,15 +455,9 @@
       .x-navinst[hidden] { display: none; }
       @media (max-width: 420px) { .x-live { display: none; } }
 
-      /* compact intro bar */
-      .x-intro { display: grid; gap: 8px; margin-top: 16px; padding: 20px 22px; border-radius: var(--r-l); background: var(--x-paper); border: 1px solid var(--x-line);
-        scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 80px); }
-      .x-intro__live { display: inline-flex; align-items: center; gap: 8px; font: var(--type-tag); font-family: var(--x-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--x-ink-soft); }
-      .x-intro h1 { font: var(--weight-bold) clamp(26px, 5vw, 36px)/1.1 var(--sans); letter-spacing: -0.03em; color: var(--text-primary); }
-      .x-intro__sub { font: var(--type-body); color: var(--x-ink-soft); max-width: 62ch; }
-      .x-intro__stats { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 4px 0 0; padding: 0; list-style: none; font: var(--type-small); color: var(--x-ink-soft); }
-      .x-intro__stats b { font: var(--weight-bold) var(--size-body)/1 var(--sans); color: var(--text-primary); margin-right: 4px; font-variant-numeric: tabular-nums; }
-      @media (max-width: 560px) { .x-intro { padding: 16px; gap: 6px; } .x-intro__sub { font-size: 14px; line-height: 1.45; } .x-intro__stats { gap: 2px 14px; } }
+      /* page starts with the release log; hidden h1 doubles as the #home anchor */
+      .x-vh { position: absolute; left: 0; right: 0; margin: 0; padding: 0; border: 0; font: var(--type-caption); white-space: normal; clip-path: inset(50%); pointer-events: none; scroll-margin-top: 200px; }
+      #log { padding-top: 16px; border-top: 0; }
 
       /* install */
       .x-inst { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
@@ -506,16 +500,7 @@
       </header>
 
       <main class="main">
-        <section class="x-intro" id="home" data-nav="Home" aria-labelledby="x-intro-title">
-          <p class="x-intro__live"><span class="x-dot" aria-hidden="true"></span>Live · Updated 26 Nov 2026</p>
-          <h1 id="x-intro-title">AI Radar</h1>
-          <p class="x-intro__sub">New AI models, apps, free offers and benchmark leaders — updated every morning.</p>
-          <ul class="x-intro__stats">
-            <li><b data-stat="models">12</b>models tracked</li>
-            <li><b data-stat="offers">7</b>live free offers</li>
-            <li><b data-stat="week">24</b>new this week</li>
-          </ul>
-        </section>
+        <h1 class="x-vh" id="home">AI Radar — New AI models, apps, free offers and benchmarks</h1>
 
         <section class="section" id="log" data-nav="Releases">
           <div class="head">
@@ -1477,12 +1462,6 @@
           $("#to-top").classList.toggle("is-on", scrollY > innerHeight);
         }
         addEventListener("scroll", onScroll, { passive: true }); onScroll();
-
-        /* ---- intro stats, from the page's own data ---- */
-        try {
-          var stv = { models: MODELS.length, offers: OFFERS.filter(function (o) { return o[0]; }).length, week: APPS.filter(function (a) { return a[2] >= 19 && a[2] <= 26; }).length };
-          $$("#home [data-stat]").forEach(function (el) { var v = stv[el.dataset.stat]; if (v) el.textContent = v; });
-        } catch (e) {}
 
         /* ---- install as app ---- */
         (function () {
