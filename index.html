@@ -14,7 +14,7 @@
     <meta property="og:title" content="AI Radar – New AI Models, Benchmarks, Tools &amp; Free AI Offers (2026)" />
     <meta property="og:description" content="Track every new AI model, live benchmarks, best AI tools, new AI apps and free AI offers like Google AI Plus and ChatGPT deals. Updated regularly." />
     <meta property="og:url" content="/" />
-    <meta property="og:image" content="hero-ai.jpg" />
+    <meta property="og:image" content="hero-radar-v2.jpg" />
     <meta property="og:image:alt" content="AI Radar: new AI models, benchmarks and free offers" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AI Radar – New AI Models, Benchmarks, Tools &amp; Free AI Offers (2026)" />
@@ -390,6 +390,84 @@
         .x-ticker li[aria-hidden] { display: none; }
       }
     </style>
+    <style>
+      /* ---- polish: hero v2, consent, premium details ---- */
+      :root { --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Segoe UI", Roboto, Geist, sans-serif; }
+      html, body { overflow-x: clip; }
+      body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+      .x-bar { background: color-mix(in srgb, var(--fill-primary-on) 68%, transparent); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); }
+
+      /* hero */
+      .x-hero > img { object-position: 72% center; }
+      .x-hero::before { background: linear-gradient(90deg, rgb(7 7 13 / 0.92) 0%, rgb(7 7 13 / 0.7) 38%, rgb(7 7 13 / 0.15) 72%, transparent), linear-gradient(0deg, rgb(7 7 13 / 0.7), transparent 45%); }
+      .x-hero h1 { max-width: 13ch; }
+      .x-hero h1 span { opacity: 1; transform: none; filter: none; animation: none; display: inline; }
+      .x-hero__sub { opacity: 1; animation: none; max-width: 44ch; }
+      .x-livepill { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; padding: 6px 12px 6px 10px; border-radius: var(--r-pill); font: var(--type-tag); letter-spacing: 0.02em;
+        color: #f5f5f7; background: #1c1b2e; border: 1px solid rgb(255 255 255 / 0.14); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      .x-in { opacity: 0; transform: translateY(16px); animation: x-up 0.8s var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 110ms + 80ms); }
+      @keyframes x-up { to { opacity: 1; transform: none; } }
+      .x-cta--ghost { background: transparent; border-color: rgb(255 255 255 / 0.28); color: var(--text-primary); }
+      .x-cta--ghost:hover { background: rgb(255 255 255 / 0.08); }
+      .x-cta:hover { transform: translateY(-1px); }
+      .x-cta:focus-visible, .x-cbtn:focus-visible, .x-cookie-link:focus-visible, .x-bar a:focus-visible { outline: 2px solid var(--x-violet); outline-offset: 3px; }
+      .x-counters b { font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+      /* cards, chips, search */
+      .x-card { border-radius: 18px; border: 0.5px solid var(--x-line); transition: border-color var(--dur-quick), transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out); }
+      @media (hover: hover) { .x-card:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgb(0 0 0 / 0.14); } }
+      .x-chips button:hover { color: var(--text-primary); border-color: var(--stroke-primary); }
+      .x-search { transition: border-color var(--dur-quick), box-shadow var(--dur-quick); }
+      .x-search:focus-within { box-shadow: 0 0 0 4px rgb(139 92 246 / 0.18); }
+      .head__eyebrow { font: var(--type-tag); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); }
+      .section .head h2 { letter-spacing: -0.02em; }
+      .js .x-srv { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+      .js .x-srv.is-in { opacity: 1; transform: none; }
+
+      /* footer columns */
+      .x-footcols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; width: 100%; padding-block: 8px; }
+      .x-footcols__h { font: var(--type-tag); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; }
+      .x-footcols nav { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+      .x-footcols nav a, .x-cookie-link { font: var(--type-small); color: var(--text-primary); text-decoration: none; min-height: var(--tap); min-width: var(--tap); display: inline-flex; align-items: center; }
+      .x-footcols nav a:hover, .x-cookie-link:hover { text-decoration: underline; }
+      .x-cookie-link { background: none; border: 0; padding: 0; cursor: pointer; }
+      @media (max-width: 560px) { .x-footcols { grid-template-columns: 1fr 1fr; } .x-footcols > div:first-child { grid-column: 1 / -1; } .x-footcols > div:first-child nav { flex-direction: row; flex-wrap: wrap; gap: 4px 14px; } }
+
+      /* cookie consent */
+      .x-consent { position: fixed; z-index: 60; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: min(560px, calc(100% - 24px));
+        padding: 18px; border-radius: 20px; background: color-mix(in srgb, var(--fill-primary-on) 82%, transparent); border: 0.5px solid var(--x-line); box-shadow: var(--hark-shadow, 0 20px 60px rgb(0 0 0 / 0.25));
+        backdrop-filter: saturate(180%) blur(24px); -webkit-backdrop-filter: saturate(180%) blur(24px); display: grid; gap: 14px; animation: x-up 0.5s var(--ease-out); }
+      .x-consent[hidden], .x-cmodal[hidden] { display: none; }
+      .x-consent p { font: var(--type-small); color: var(--text-primary); }
+      .x-consent__btns { display: flex; flex-wrap: wrap; gap: 8px; }
+      .x-cbtn { min-height: var(--tap); padding: 0 16px; border-radius: var(--r-pill); font: var(--type-label); cursor: pointer; border: 1px solid var(--x-line); background: var(--x-glass-2); color: var(--text-primary); flex: 1 1 auto; transition: transform var(--dur-quick); }
+      .x-cbtn--main { background: var(--fill-primary); color: var(--text-primary-on); border-color: transparent; }
+      .x-cbtn--ghost { background: transparent; }
+      .x-cbtn:active { transform: scale(0.97); }
+      @media (max-width: 899px) { .x-consent { bottom: calc(var(--x-tabbar) + 10px); } }
+      .x-cmodal { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 16px; background: rgb(0 0 0 / 0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+      .x-cmodal__card { width: min(460px, 100%); max-height: calc(100svh - 32px); overflow: auto; padding: 22px; border-radius: 20px; background: var(--fill-primary-on); border: 0.5px solid var(--x-line); box-shadow: 0 30px 80px rgb(0 0 0 / 0.35); display: grid; gap: 12px; animation: x-up 0.35s var(--ease-out); }
+      .x-cmodal__card h2 { font: var(--type-heading); }
+      .x-tog { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; border-radius: var(--r-m); background: var(--fill-tertiary); cursor: pointer; }
+      .x-tog span { display: grid; gap: 2px; font: var(--type-label); } .x-tog small { font: var(--type-caption); color: var(--text-secondary); }
+      .x-tog input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+      .x-tog i { flex: none; width: 44px; height: 26px; border-radius: 13px; background: var(--stroke-primary); position: relative; transition: background var(--dur-quick); }
+      .x-tog i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / 0.3); transition: transform var(--dur-quick) var(--ease-out); }
+      .x-tog input:checked + i { background: var(--fill-system-green); } .x-tog input:checked + i::after { transform: translateX(18px); }
+      .x-tog input:disabled + i { opacity: 0.55; } .x-tog:has(input:disabled) { cursor: default; }
+      .x-tog input:focus-visible + i { outline: 2px solid var(--x-violet); outline-offset: 2px; }
+      .x-noscroll { overflow: hidden; }
+
+      /* small phones */
+      @media (max-width: 420px) {
+        .x-hero { padding: 20px; min-height: 0; }
+        .x-hero > img { object-position: 80% center; }
+        .x-counters { gap: 6px; } .x-counters div { padding: 10px; } .x-counters span { font-size: 12px; line-height: 1.3; }
+        .x-ctas .x-cta { flex: 1 1 auto; justify-content: center; }
+        .x-ticker { margin-inline: -20px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .x-in, .js .x-srv { opacity: 1; transform: none; animation: none; } }
+    </style>
     <link rel="apple-touch-icon" href="icon-192.png" />
   </head>
   <body>
@@ -412,20 +490,20 @@
 
       <main class="main">
         <section class="x-hero" id="home" data-nav="Home">
-          <img src="hero-ai.jpg" alt="Abstract radar of glowing AI signals in violet and cyan" />
+          <img src="hero-radar-v2.jpg" alt="A glowing radar orb on the right, against dark space" />
           <div class="x-glow" aria-hidden="true"></div>
           <canvas id="x-particles" aria-hidden="true"></canvas>
-          <p class="x-eyebrow"><span class="x-pulse"></span>Global AI hub · Last updated: 26 Nov 2026</p>
-          <h1><span>Every new AI model.</span> <span class="x-grad-text">Real benchmarks.</span> <span>Free offers.</span></h1>
-          <p class="x-hero__sub">Your shortcut to everything happening in AI.</p>
-          <div class="x-ctas">
-            <a class="x-cta x-cta--main" href="#models">Explore models</a>
-            <a class="x-cta" href="#free">Free offers</a>
+          <p class="x-livepill x-in" style="--i:0"><span class="x-pulse"></span>Live · Updated 26 Nov 2026</p>
+          <h1 class="x-in" style="--i:1">Every AI launch. <span class="x-grad-text">One radar.</span></h1>
+          <p class="x-hero__sub x-in" style="--i:2">New models, apps, free offers and benchmark leaders — updated every morning.</p>
+          <div class="x-ctas x-in" style="--i:3">
+            <a class="x-cta x-cta--main" href="#new">Explore what's new</a>
+            <a class="x-cta x-cta--ghost" href="#free">Free AI offers</a>
           </div>
-          <div class="x-counters">
-            <div><b data-count="35">35</b><span>releases logged in Nov 2026</span></div>
-            <div><b data-count="5">5</b><span>frontier launches</span></div>
-            <div><b data-count="64.6" data-dec="1">64.6</b><span>top Intelligence Index</span></div>
+          <div class="x-counters x-in" style="--i:4">
+            <div><b data-count="12" data-stat="models">12</b><span>models tracked</span></div>
+            <div><b data-count="7" data-stat="offers">7</b><span>live free offers</span></div>
+            <div><b data-count="24" data-stat="week">24</b><span>new this week</span></div>
           </div>
           <div class="x-ticker" aria-label="Headlines"><ul id="ticker"></ul></div>
         </section>
@@ -632,6 +710,7 @@
                 <p>We don't require accounts. The suggestion form collects only what you type into it, including your email if you choose to give it.</p>
                 <h3>Cookies and local storage</h3>
                 <p>Your theme, votes and ratings are saved in your browser's local storage on your device.</p>
+                <p>On your first visit we ask for cookie consent; ads load only if you accept advertising, and you can change your choice any time under “Cookie settings” in the footer.</p>
                 <h3>Advertising</h3>
                 <p>We use Google AdSense. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this and other websites. Google's use of advertising cookies enables it and its partners to serve ads based on visits to this and/or other sites.</p>
                 <p>You may opt out of personalised advertising at <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ads Settings</a> or <a href="https://www.aboutads.info" target="_blank" rel="noopener">www.aboutads.info</a>.</p>
@@ -671,8 +750,11 @@
 
       <footer class="foot">
         <p><strong>AI Radar</strong> · Data as of 26 Nov 2026 · Sources: Artificial Analysis, LMArena, Vals AI, ArtificialWatch, BenchLeader, official company blogs. Not affiliated with any AI company.</p>
-        <nav aria-label="Site information"><a href="#about">About</a><a href="#contact">Contact</a><a href="#privacy">Privacy Policy</a><a href="#disclaimer">Disclaimer</a></nav>
-        <nav aria-label="Back to sections" data-auto></nav>
+        <div class="x-footcols">
+          <div><p class="x-footcols__h">Sections</p><nav aria-label="Back to sections" data-auto></nav></div>
+          <div><p class="x-footcols__h">Legal</p><nav aria-label="Legal"><a href="#privacy">Privacy Policy</a><a href="#disclaimer">Disclaimer</a><button type="button" class="x-cookie-link" id="cookie-settings">Cookie settings</button></nav></div>
+          <div><p class="x-footcols__h">About</p><nav aria-label="Site information"><a href="#about">About</a><a href="#contact">Contact</a></nav></div>
+        </div>
         <p class="x-copyright">© 2026 AI Radar</p>
         <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"><span class="hark-mark"></span><span>built by hark</span></a>
       </footer>
@@ -687,6 +769,28 @@
       <a href="#free" data-tab="free"><svg viewBox="0 0 24 24"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H8a2.5 2.5 0 1 1 0-5c3 0 4 5 4 5zM12 7h4a2.5 2.5 0 1 0 0-5c-3 0-4 5-4 5z"/></svg>Free</a>
     </nav>
     <a class="x-top-btn" href="#top" id="to-top" aria-label="Back to top">↑</a>
+
+    <div class="x-consent" id="consent" role="region" aria-label="Cookie consent" hidden>
+      <p>We use cookies to improve your experience, measure traffic and show ads. <a class="link" href="#privacy">Privacy Policy</a></p>
+      <div class="x-consent__btns">
+        <button type="button" class="x-cbtn x-cbtn--main" data-consent="all">Accept all</button>
+        <button type="button" class="x-cbtn" data-consent="none">Reject non-essential</button>
+        <button type="button" class="x-cbtn x-cbtn--ghost" data-consent="custom">Customize</button>
+      </div>
+    </div>
+    <div class="x-cmodal" id="consent-modal" hidden>
+      <div class="x-cmodal__card" role="dialog" aria-modal="true" aria-labelledby="cm-title" tabindex="-1">
+        <h2 id="cm-title">Cookie preferences</h2>
+        <p class="fineprint">Choose which cookies AI Radar may use. You can change this any time from the footer.</p>
+        <label class="x-tog"><span><b>Necessary</b><small>Theme, votes and this choice. Always on.</small></span><input type="checkbox" checked disabled /><i aria-hidden="true"></i></label>
+        <label class="x-tog"><span><b>Analytics</b><small>Anonymous traffic measurement.</small></span><input type="checkbox" id="cm-analytics" /><i aria-hidden="true"></i></label>
+        <label class="x-tog"><span><b>Advertising</b><small>Google AdSense ads, which may use cookies.</small></span><input type="checkbox" id="cm-ads" /><i aria-hidden="true"></i></label>
+        <div class="x-consent__btns">
+          <button type="button" class="x-cbtn x-cbtn--main" id="cm-save">Save preferences</button>
+          <button type="button" class="x-cbtn x-cbtn--ghost" id="cm-close">Cancel</button>
+        </div>
+      </div>
+    </div>
 
     <script type="application/json" id="bench-data">
       [
@@ -1186,8 +1290,10 @@
           if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
         });
 
-        /* AdSense: slots stay hidden unless CONFIG.ADSENSE_CLIENT is set */
-        if (CONFIG.ADSENSE_CLIENT) {
+        /* AdSense: loads only with ads consent AND CONFIG.ADSENSE_CLIENT set */
+        function loadAds() {
+          if (!CONFIG.ADSENSE_CLIENT || loadAds.done) return;
+          loadAds.done = true;
           try {
             if (!d.querySelector('script[src*="adsbygoogle.js"]')) {
               var as = d.createElement("script"); as.async = true; as.crossOrigin = "anonymous";
@@ -1205,6 +1311,44 @@
             });
           } catch (e) {}
         }
+
+        /* cookie consent */
+        (function () {
+          var KEY = "air_consent", bar = $("#consent"), modal = $("#consent-modal"), card = modal.querySelector(".x-cmodal__card"), lastFocus = null;
+          function read() { try { var v = JSON.parse(localStorage.getItem(KEY) || "null"); return v && typeof v === "object" ? v : null; } catch (e) { return null; } }
+          function apply(c) { if (c && c.ads) loadAds(); }
+          function save(an, ads) {
+            var c = { necessary: true, analytics: !!an, ads: !!ads, ts: Date.now() };
+            try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
+            bar.hidden = true; apply(c);
+          }
+          function openModal() {
+            var c = read() || {};
+            $("#cm-analytics").checked = !!c.analytics; $("#cm-ads").checked = !!c.ads;
+            lastFocus = d.activeElement; modal.hidden = false; d.body.classList.add("x-noscroll");
+            setTimeout(function () { $("#cm-analytics").focus(); }, 30);
+          }
+          function closeModal() { modal.hidden = true; d.body.classList.remove("x-noscroll"); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+          bar.addEventListener("click", function (e) {
+            var b = e.target.closest("[data-consent]"); if (!b) return;
+            var k = b.dataset.consent;
+            if (k === "all") save(true, true); else if (k === "none") save(false, false); else openModal();
+          });
+          $("#cm-save").addEventListener("click", function () { save($("#cm-analytics").checked, $("#cm-ads").checked); closeModal(); });
+          $("#cm-close").addEventListener("click", closeModal);
+          modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+          modal.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") { closeModal(); return; }
+            if (e.key !== "Tab") return;
+            var f = $$("input:not([disabled]), button", card); if (!f.length) return;
+            var first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && d.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && d.activeElement === last) { e.preventDefault(); first.focus(); }
+          });
+          $("#cookie-settings").addEventListener("click", openModal);
+          var saved = read();
+          if (saved) apply(saved); else bar.hidden = false;
+        })();
 
         /* suggest a tool */
         var sf = $("#suggest-form"), why = $("#s-why"), msg = $("#s-msg"), sbtn = $("#s-submit");
@@ -1288,6 +1432,19 @@
           var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
           rv.forEach(function (el, i) { el.style.transitionDelay = (i % 3) * 60 + "ms"; io.observe(el); });
         }
+        /* section headings reveal */
+        $$(".section > .head").forEach(function (h) {
+          if (RM || !("IntersectionObserver" in window)) return;
+          h.classList.add("x-srv");
+          var so = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { h.classList.add("is-in"); so.disconnect(); } }, { rootMargin: "0px 0px -6% 0px" });
+          so.observe(h);
+        });
+
+        /* hero stats from the page's own data */
+        try {
+          var stv = { models: MODELS.length, offers: OFFERS.filter(function (o) { return o[0]; }).length, week: APPS.filter(function (a) { return a[2] >= 19 && a[2] <= 26; }).length };
+          $$("[data-stat]").forEach(function (el) { var v = stv[el.dataset.stat]; if (v) { el.dataset.count = v; el.textContent = v; } });
+        } catch (e) {}
 
         /* count-up */
         if (!RM) $$("[data-count]").forEach(function (el) {
