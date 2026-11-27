@@ -458,6 +458,19 @@
       .x-tog input:focus-visible + i { outline: 2px solid var(--x-violet); outline-offset: 2px; }
       .x-noscroll { overflow: hidden; }
 
+      /* hero: typer + parallax */
+      .x-hero h1 { translate: calc(var(--px, 0) * 10px) calc(var(--py, 0) * 6px); }
+      .x-typer, .x-hero__sub { translate: calc(var(--px, 0) * 5px) calc(var(--py, 0) * 3px); }
+      .x-typer { display: inline-flex; align-items: center; gap: 2px; max-width: 100%; min-height: max(var(--tap), 1.3em); margin-top: 10px; padding: 0; border: 0; background: none; cursor: pointer;
+        font: var(--weight-medium) clamp(17px, 3vw, 28px)/1.3 var(--sans); letter-spacing: -0.02em; color: #c4b5fd; text-align: left; white-space: nowrap; overflow: hidden; border-radius: var(--r-s); }
+      .x-typer__txt { min-width: 0; overflow: hidden; }
+      .x-typer__caret { flex: none; width: 2px; height: 1.05em; margin-left: 2px; border-radius: 1px; background: var(--x-cyan); animation: x-blink 1s steps(1) infinite; }
+      .x-typer__go { flex: none; margin-left: 10px; font-size: 0.7em; color: var(--hero-text-muted, #a1a1aa); opacity: 0; transform: translateX(-4px); transition: opacity var(--dur-quick), transform var(--dur-quick) var(--ease-out); }
+      .x-typer:hover .x-typer__go, .x-typer:focus-visible .x-typer__go { opacity: 1; transform: none; }
+      .x-typer:focus-visible { outline: 2px solid var(--x-violet); outline-offset: 4px; }
+      @media (hover: none) { .x-typer__go { opacity: 0.7; transform: none; } }
+      @media (prefers-reduced-motion: reduce) { .x-typer__caret { animation: none; opacity: 0; } .x-hero h1, .x-typer, .x-hero__sub { translate: none; } }
+
       /* small phones */
       @media (max-width: 420px) {
         .x-hero { padding: 20px; min-height: 0; }
@@ -495,6 +508,7 @@
           <canvas id="x-particles" aria-hidden="true"></canvas>
           <p class="x-livepill x-in" style="--i:0"><span class="x-pulse"></span>Live · Updated 26 Nov 2026</p>
           <h1 class="x-in" style="--i:1">Every AI launch. <span class="x-grad-text">One radar.</span></h1>
+          <div class="x-in" style="--i:1"><button class="x-typer" id="x-typer" type="button" aria-label="What AI Radar offers: track new AI models, compare benchmark leaders, grab free AI offers before they end, discover new AI apps and tools, copy ready-made prompts, vote for the best AI tools. Activate to jump to the matching section."><span class="x-typer__txt x-grad-text" id="x-typer-txt" aria-hidden="true">Track new AI models</span><span class="x-typer__caret" aria-hidden="true"></span><span class="x-typer__go" aria-hidden="true">→</span></button></div>
           <p class="x-hero__sub x-in" style="--i:2">New models, apps, free offers and benchmark leaders — updated every morning.</p>
           <div class="x-ctas x-in" style="--i:3">
             <a class="x-cta x-cta--main" href="#new">Explore what's new</a>
@@ -1466,30 +1480,124 @@
         }
         addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
-        /* particle field */
+        /* 3D radar globe */
         var cv = $("#x-particles"), hero = $("#home");
-        if (!RM && cv.getContext) {
-          var ctx = cv.getContext("2d"), P = [], W, H, dpr = Math.min(devicePixelRatio || 1, 2), vis = true;
-          function size() { W = hero.clientWidth; H = hero.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-          size(); addEventListener("resize", size);
-          for (var i = 0, n = Math.min(70, Math.round(W * H / 9000)); i < n; i++) P.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, r: Math.random() * 1.6 + 0.4, c: Math.random() < 0.5 ? "139,92,246" : "34,211,238" });
-          new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) requestAnimationFrame(draw); }).observe(hero);
-          function draw() {
-            if (!vis) return;
-            ctx.clearRect(0, 0, W, H);
-            for (var a = 0; a < P.length; a++) {
-              var p = P[a]; p.x += p.vx; p.y += p.vy;
-              if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1;
-              var lt = root.getAttribute("data-theme") === "light", pc = lt ? (p.c === "139,92,246" ? "196,181,253" : "165,243,252") : p.c;
-              ctx.fillStyle = "rgba(" + pc + "," + (lt ? 0.95 : 0.8) + ")"; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
-              for (var b = a + 1; b < P.length; b++) {
-                var q = P[b], dx = p.x - q.x, dy = p.y - q.y, dd = dx * dx + dy * dy;
-                if (dd < 9000) { ctx.strokeStyle = "rgba(" + pc + "," + (0.18 * (1 - dd / 9000)) + ")"; ctx.lineWidth = 0.6; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
+        if (cv && cv.getContext) (function () {
+          var ctx = cv.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 2);
+          var W = 0, H = 0, cx = 0, cy = 0, R = 0, N = 0, P = [], pairs = [], grad = null;
+          var yaw = 0, tiltX = 0, tiltY = 0, tgtX = 0, tgtY = 0, mx = -9999, my = -9999, mActive = false, px = 0, py = 0;
+          var inView = true, tabOn = !document.hidden, running = false, rt;
+          function build() {
+            W = hero.clientWidth; H = hero.clientHeight;
+            var mobile = W < 700;
+            cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            cx = W * (mobile ? 0.76 : 0.72); cy = H * (mobile ? 0.26 : 0.44);
+            R = Math.min(W, H) * (mobile ? 0.3 : 0.34);
+            var n = mobile ? 70 : W < 1100 ? 130 : 160;
+            if (n !== N) {
+              N = n; P = []; pairs = [];
+              var ga = Math.PI * (3 - Math.sqrt(5));
+              for (var i = 0; i < N; i++) {
+                var y = 1 - (i + 0.5) * 2 / N, r = Math.sqrt(1 - y * y), t = ga * i;
+                P.push({ x: Math.cos(t) * r, y: y, z: Math.sin(t) * r, ox: 0, oy: 0, sx: 0, sy: 0, d: 0, s: Math.random() < 0.5 });
+              }
+              var lim = (mobile ? 0.5 : 0.36); lim *= lim;
+              for (var a = 0; a < N; a++) for (var b = a + 1; b < N; b++) {
+                var dx = P[a].x - P[b].x, dy = P[a].y - P[b].y, dz = P[a].z - P[b].z;
+                if (dx * dx + dy * dy + dz * dz < lim) pairs.push(a, b);
               }
             }
-            requestAnimationFrame(draw);
+            grad = ctx.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
+            grad.addColorStop(0, "#8b5cf6"); grad.addColorStop(1, "#22d3ee");
           }
-        }
+          function frame() {
+            tiltX += (tgtX - tiltX) * 0.06; tiltY += (tgtY - tiltY) * 0.06;
+            var ry = yaw + tiltY, cyw = Math.cos(ry), syw = Math.sin(ry), cp = Math.cos(tiltX - 0.35), sp = Math.sin(tiltX - 0.35), fov = 2.6;
+            for (var i = 0; i < N; i++) {
+              var p = P[i], x1 = p.x * cyw + p.z * syw, z1 = -p.x * syw + p.z * cyw, y2 = p.y * cp - z1 * sp, z2 = p.y * sp + z1 * cp;
+              var f = fov / (fov + z2), bx = cx + x1 * R * f, by = cy + y2 * R * f;
+              if (mActive) {
+                var dx = bx + p.ox - mx, dy = by + p.oy - my, dd = dx * dx + dy * dy;
+                if (dd < 8100 && dd > 0.01) { var k = (1 - dd / 8100) * 2.2 / Math.sqrt(dd); p.ox += dx * k; p.oy += dy * k; }
+              }
+              p.ox *= 0.9; p.oy *= 0.9;
+              p.sx = bx + p.ox; p.sy = by + p.oy; p.d = (1 - z2) / 2; p.f = f;
+            }
+            ctx.clearRect(0, 0, W, H);
+            ctx.strokeStyle = grad; ctx.lineWidth = 0.6;
+            for (var bkt = 0; bkt < 3; bkt++) {
+              ctx.beginPath();
+              for (var j = 0; j < pairs.length; j += 2) {
+                var A = P[pairs[j]], B = P[pairs[j + 1]], dm = (A.d + B.d) / 2, bb = dm < 0.4 ? 0 : dm < 0.7 ? 1 : 2;
+                if (bb !== bkt) continue;
+                ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy);
+              }
+              ctx.globalAlpha = [0.06, 0.16, 0.32][bkt]; ctx.stroke();
+            }
+            for (var q = 0; q < N; q++) {
+              var e = P[q];
+              ctx.globalAlpha = 0.25 + e.d * 0.75;
+              ctx.fillStyle = e.s ? "#a78bfa" : "#67e8f9";
+              ctx.beginPath(); ctx.arc(e.sx, e.sy, (0.6 + e.d * 1.6) * e.f, 0, 6.283); ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+          }
+          function loop() {
+            if (!(inView && tabOn)) { running = false; return; }
+            yaw += 0.0025;
+            var tpx = mActive ? (mx / W - 0.5) * 2 : 0, tpy = mActive ? (my / H - 0.5) * 2 : 0;
+            px += (tpx - px) * 0.06; py += (tpy - py) * 0.06;
+            hero.style.setProperty("--px", px.toFixed(3)); hero.style.setProperty("--py", py.toFixed(3));
+            frame(); requestAnimationFrame(loop);
+          }
+          function start() { if (!RM && !running && inView && tabOn) { running = true; requestAnimationFrame(loop); } }
+          build(); frame();
+          addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { build(); if (RM || !running) frame(); }, 150); });
+          if (RM) return;
+          function point(x, y) {
+            var r = hero.getBoundingClientRect(); mx = x - r.left; my = y - r.top; mActive = true;
+            tgtY = (mx / W - 0.5) * 0.9; tgtX = (my / H - 0.5) * 0.7;
+          }
+          function leave() { mActive = false; tgtX = 0; tgtY = 0; mx = my = -9999; }
+          hero.addEventListener("pointermove", function (e) { if (e.pointerType !== "touch") point(e.clientX, e.clientY); }, { passive: true });
+          hero.addEventListener("pointerleave", function (e) { if (e.pointerType !== "touch") leave(); });
+          hero.addEventListener("touchstart", function (e) { var t = e.touches[0]; if (t) point(t.clientX, t.clientY); }, { passive: true });
+          hero.addEventListener("touchmove", function (e) { var t = e.touches[0]; if (t) point(t.clientX, t.clientY); }, { passive: true });
+          hero.addEventListener("touchend", leave, { passive: true });
+          hero.addEventListener("touchcancel", leave, { passive: true });
+          if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { inView = es[0].isIntersecting; start(); }).observe(hero);
+          document.addEventListener("visibilitychange", function () { tabOn = !document.hidden; start(); });
+          start();
+        })();
+
+        /* typing headline */
+        (function () {
+          var btn = $("#x-typer"), out = $("#x-typer-txt");
+          if (!btn || !out) return;
+          var items = [
+            ["Track new AI models", "models"], ["Compare benchmark leaders", "bench"], ["Grab free AI offers before they end", "free"],
+            ["Discover new AI apps & tools", "new"], ["Copy ready-made prompts", "prompts"], ["Vote for the best AI tools", "tools"]
+          ];
+          var idx = 0, len = items[0][0].length, del = false;
+          btn.addEventListener("click", function () {
+            var s = document.getElementById(items[idx][1]);
+            if (s) { s.scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" }); history.replaceState(null, "", "#" + items[idx][1]); }
+          });
+          out.textContent = items[0][0];
+          if (RM) return;
+          function tick() {
+            var txt = items[idx][0], wait;
+            if (!del) {
+              len++; out.textContent = txt.slice(0, len);
+              if (len >= txt.length) { del = true; wait = 1600; } else wait = 55;
+            } else {
+              len--; out.textContent = txt.slice(0, Math.max(len, 0));
+              if (len <= 0) { del = false; idx = (idx + 1) % items.length; wait = 350; } else wait = 30;
+            }
+            setTimeout(tick, document.hidden ? 800 : wait);
+          }
+          len = items[0][0].length; del = true; setTimeout(tick, 2200);
+        })();
       })();
     </script>
   <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}</script>
